@@ -7,8 +7,8 @@ import java.util.List;
 import com.escom.distribuidos.core.annotations.Controller;
 import com.escom.distribuidos.core.annotations.RequestMapping;
 import com.escom.distribuidos.core.dao.BDConexion;
+import com.escom.distribuidos.model.AlumnoEntity;
 import com.escom.distribuidos.servidor.dao.AlumnoDao;
-import com.escom.distribuidos.servidor.dao.AlumnoEntity;
 
 @Controller("alumno")
 public class AlumnoController {
@@ -26,8 +26,24 @@ public class AlumnoController {
 	}
 
 	@RequestMapping(value = "crearAlumno", method = "POST")
-	public void crearAlumno() {
+	public void crearAlumno(AlumnoEntity alumno) {
+		alumnoDao.createAlumno(alumno);
+	}
 
+	@RequestMapping(value = "updateAlumno", method = "POST")
+	public int updateAlumno(AlumnoEntity alumno) {
+		return alumnoDao.updateAlumno(alumno);
+	}
+
+	@Override
+	public void finalize() throws Throwable {
+		try {
+			BDConexion.getInstance().close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			super.finalize();
+		}
 	}
 
 }

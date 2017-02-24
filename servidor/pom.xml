@@ -32,7 +32,12 @@
 	    <artifactId>mysql-connector-java</artifactId>
 	    <version>6.0.5</version>
 	</dependency>
-    
+
+	<dependency>
+		<groupId>com.escom.distribuidos</groupId>
+		<artifactId>model</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
   </dependencies>
   
     <build>

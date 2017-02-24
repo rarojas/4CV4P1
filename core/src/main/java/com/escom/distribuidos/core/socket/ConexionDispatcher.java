@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 import java.net.Socket;
 
 import com.escom.distribuidos.core.Context;
+import com.escom.distribuidos.core.exceptions.GenericRuntimeException;
 
 public class ConexionDispatcher extends Thread {
 
@@ -42,8 +43,6 @@ public class ConexionDispatcher extends Thread {
 				route = route.concat(peticion.getRoute());
 				Context context = Context.getInstance();
 				Method method = context.getMappings().get(route);
-				System.out.println("Peticion");
-				System.out.println(route);
 				Class<?> parent = method.getDeclaringClass();
 				Object controller;
 				try {
@@ -54,18 +53,21 @@ public class ConexionDispatcher extends Thread {
 					}
 					Object object = method.invoke(controller, args);
 					Result result = new Result();
-					result.setPayload(result);
-					this.salida.writeObject(object);
+					result.setPayload(object);
+					salida.writeObject(result);
+
+				} catch (GenericRuntimeException e) {
+					Result result = new Result();
+					result.setCode(StatusCodeEnum.FAIL);
+					salida.writeObject(result);
+					e.printStackTrace();
 				} catch (Exception e) {
 					Result result = new Result();
 					result.setCode(StatusCodeEnum.FAIL);
-					this.salida.writeObject(result);
+					salida.writeObject(result);
 				}
-
 			}
-		} catch (IOException e) {
-
-		} catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {

@@ -8,7 +8,7 @@ public class BDConexion {
 
 	String dbURL = "jdbc:mysql://localhost:3306/cursos";
 	String username = "root";
-	String password = "root";
+	String password = "";
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 
 	protected BDConexion() {

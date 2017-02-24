@@ -8,6 +8,7 @@ import java.net.UnknownHostException;
 
 import com.escom.distribuidos.core.socket.Peticion;
 import com.escom.distribuidos.core.socket.Result;
+import com.escom.distribuidos.model.AlumnoEntity;
 
 public class Cliente {
 
@@ -26,7 +27,21 @@ public class Cliente {
 
 			Peticion peticion = new Peticion();
 			peticion.setMethod("POST");
-			peticion.setRoute("alumno/obtenerAlumnos");
+			peticion.setRoute("alumno/updateAlumno");
+			AlumnoEntity alumnoEntity = new AlumnoEntity();
+			alumnoEntity.setNombre("Ricardo");
+			alumnoEntity.setPaterno("Rojas");
+			alumnoEntity.setMaterno("Espinoza");
+			alumnoEntity.setEmail("ricrojas@gmail.com");
+			alumnoEntity.setCalle("calle");
+			alumnoEntity.setColonia("colonia");
+			alumnoEntity.setNumero("numer");
+			alumnoEntity.setDelegacion("delegacion");
+			alumnoEntity.setEntidad("entidad");
+			alumnoEntity.setNoTelefono("5510699218");
+			alumnoEntity.setIdAlumno(1);
+			peticion.setPayload(alumnoEntity);
+
 			salida.writeObject(peticion);
 			Result resultado;
 			try {
