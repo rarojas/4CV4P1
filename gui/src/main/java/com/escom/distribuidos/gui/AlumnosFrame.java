@@ -18,9 +18,7 @@ import com.escom.distribuidos.model.AlumnoEntity;
 public class AlumnosFrame extends JInternalFrame {
 
 	private static final long serialVersionUID = 5768806463114248961L;
-
-	public static int openFrameCount = 0;
-
+	private static AlumnosFrame INSTANCE;
 	private AlumnosServices alumnosServices;
 	private JTable alumnosTable;
 	private DefaultTableModel model;
@@ -40,6 +38,7 @@ public class AlumnosFrame extends JInternalFrame {
 
 		alumnosServices = new AlumnosServices(Cliente.getInstance());
 		alumnosServices.all(new AsyncRequestListener<List<AlumnoEntity>>() {
+			@Override
 			public void onComplete(List<AlumnoEntity> result) {
 				for (AlumnoEntity alumnoEntity : result) {
 					model.addRow(ReflectionUtils.getValues(alumnoEntity, AlumnoEntity.class));
@@ -53,4 +52,10 @@ public class AlumnosFrame extends JInternalFrame {
 		initialize();
 	}
 
+	public static AlumnosFrame getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new AlumnosFrame();
+		}
+		return INSTANCE;
+	}
 }

@@ -24,8 +24,8 @@ public class SplashScreen extends JWindow {
 	JProgressBar progressBar = new JProgressBar();
 	ImageIcon imageIcon;
 
-	public SplashScreen() {
-		// this.imageIcon = imageIcon;
+	public SplashScreen(ImageIcon imageIcon) {
+		this.imageIcon = imageIcon;
 		try {
 			jbInit();
 		} catch (Exception ex) {
@@ -35,7 +35,7 @@ public class SplashScreen extends JWindow {
 
 	// note - this class created with JBuilder
 	void jbInit() throws Exception {
-		// imageLabel.setIcon(imageIcon);
+		imageLabel.setIcon(imageIcon);
 		this.getContentPane().setLayout(borderLayout1);
 		southPanel.setLayout(southPanelFlowLayout);
 		southPanel.setBackground(Color.black);
@@ -52,6 +52,7 @@ public class SplashScreen extends JWindow {
 	public void setProgress(int progress) {
 		final int theProgress = progress;
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				progressBar.setValue(theProgress);
 			}
@@ -63,6 +64,7 @@ public class SplashScreen extends JWindow {
 		final String theMessage = message;
 		setProgress(progress);
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				progressBar.setValue(theProgress);
 				setMessage(theMessage);
@@ -73,6 +75,7 @@ public class SplashScreen extends JWindow {
 	public void setScreenVisible(boolean b) {
 		final boolean boo = b;
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				setVisible(boo);
 			}
