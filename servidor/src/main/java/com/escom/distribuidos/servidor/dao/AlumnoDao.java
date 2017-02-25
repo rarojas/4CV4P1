@@ -12,7 +12,7 @@ public class AlumnoDao extends GenericDAO<AlumnoEntity> {
 	private final static String TABLENAME = "alumno";
 
 	public AlumnoDao(Connection con) {
-		super(con, TABLENAME);
+		super(con, TABLENAME, AlumnoEntity.class);
 	}
 
 	public List<AlumnoEntity> all() {

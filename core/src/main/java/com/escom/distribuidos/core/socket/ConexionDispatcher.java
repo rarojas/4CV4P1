@@ -1,5 +1,6 @@
 package com.escom.distribuidos.core.socket;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -42,6 +43,7 @@ public class ConexionDispatcher extends Thread {
 				String route = peticion.getMethod().concat(" ");
 				route = route.concat(peticion.getRoute());
 				Context context = Context.getInstance();
+				System.out.println("Request -->".concat(route));
 				Method method = context.getMappings().get(route);
 				Class<?> parent = method.getDeclaringClass();
 				Object controller;
@@ -67,11 +69,14 @@ public class ConexionDispatcher extends Thread {
 					salida.writeObject(result);
 				}
 			}
+		} catch (EOFException e) {
+
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				this.cliente.close();
+				if (!cliente.isClosed())
+					this.cliente.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -7,6 +7,6 @@ package com.escom.distribuidos.cliente;
 public class App {
 
 	public static void main(String[] args) {
-		new Cliente();
+		Cliente cliente = Cliente.getInstance();
 	}
 }

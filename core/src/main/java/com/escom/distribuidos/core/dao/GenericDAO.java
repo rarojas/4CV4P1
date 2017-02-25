@@ -18,12 +18,33 @@ public abstract class GenericDAO<T> {
 	private Statement statement;
 	protected ResultSetMapper<T> mapper;
 	protected ObjectSQLMapper<T> mapperSql;
+	private Class<T> clazz;
 
-	protected GenericDAO(Connection con, String tableName) {
+	protected GenericDAO(Connection con, String tableName, Class<T> clazz) {
 		this.tableName = tableName;
 		this.con = con;
 		mapper = new ResultSetMapper<T>();
 		mapperSql = new ObjectSQLMapper<T>();
+		this.clazz = clazz;
+	}
+
+	public List<T> all() {
+		String query = "SELECT * FROM " + tableName;
+		List<T> result = new ArrayList<T>();
+		result = this.executeQuery(query);
+		return result;
+	}
+
+	public int create(T entity) {
+		String query = "insert  into " + tableName;
+		query = query.concat(mapperSql.mapObjectToInsertSQL(entity, clazz));
+		return this.executeUpdate(query);
+	}
+
+	public int update(T entity) {
+		String query = "update " + tableName;
+		query = query.concat(mapperSql.mapObjectToUpdateSQL(entity, clazz));
+		return this.executeUpdate(query);
 	}
 
 	protected List<T> executeQuery(String query) {
@@ -32,7 +53,7 @@ public abstract class GenericDAO<T> {
 		try {
 			statement = con.createStatement();
 			rs = statement.executeQuery(query);
-			result = mapper.mapRersultSetToObject(rs, this.getClass().getGenericSuperclass().getClass());
+			result = mapper.mapRersultSetToObject(rs, clazz);
 			rs.close();
 			statement.close();
 

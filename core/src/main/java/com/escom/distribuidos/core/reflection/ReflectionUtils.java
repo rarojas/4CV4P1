@@ -2,6 +2,7 @@ package com.escom.distribuidos.core.reflection;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
@@ -10,10 +11,43 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.escom.distribuidos.core.annotations.Column;
 import com.escom.distribuidos.core.annotations.Controller;
+import com.escom.distribuidos.core.annotations.Entity;
 import com.escom.distribuidos.core.annotations.RequestMapping;
 
 public class ReflectionUtils {
+
+	public static String[] getColumnNames(Class<?> clazz) {
+		List<String> columnNames = new ArrayList<String>();
+		if (clazz.isAnnotationPresent(Entity.class)) {
+			Field[] fields = clazz.getDeclaredFields();
+			for (Field field : fields) {
+				if (field.isAnnotationPresent(Column.class)) {
+					columnNames.add(field.getName());
+				}
+			}
+		}
+		return columnNames.toArray(new String[0]);
+	}
+
+	public static <T> Object[] getValues(T entity, Class<?> clazz) {
+		List<Object> values = new ArrayList<Object>();
+		if (clazz.isAnnotationPresent(Entity.class)) {
+			Field[] fields = clazz.getDeclaredFields();
+			for (Field field : fields) {
+				if (field.isAnnotationPresent(Column.class)) {
+					try {
+						field.setAccessible(true);
+						values.add(field.get(entity));
+					} catch (IllegalArgumentException | IllegalAccessException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		return values.toArray();
+	}
 
 	public static Map<String, Method> getClasses(String packageName) throws ClassNotFoundException, IOException {
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();

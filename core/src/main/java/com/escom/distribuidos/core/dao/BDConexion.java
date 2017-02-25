@@ -12,12 +12,7 @@ public class BDConexion {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 
 	protected BDConexion() {
-		try {
-			Class.forName(JDBC_DRIVER);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
+
 	}
 
 	public Connection open() throws SQLException {

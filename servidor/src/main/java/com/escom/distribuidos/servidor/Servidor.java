@@ -9,11 +9,11 @@ public class Servidor extends Thread {
 
 	public static final int PUERTO = 6666;
 
-	ServerSocket socketServidor;
+	private ServerSocket socketServidor;
 
 	public Servidor() {
 		try {
-			this.socketServidor = new ServerSocket(PUERTO);
+			socketServidor = new ServerSocket(PUERTO);
 			System.out.println("Corriendo...");
 		} catch (Exception e) {
 			e.printStackTrace();
