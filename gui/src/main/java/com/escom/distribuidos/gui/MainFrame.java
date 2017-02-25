@@ -55,6 +55,23 @@ public class MainFrame extends JFrame {
 		});
 		accionesMenu.add(alumnosMenuItem);
 
+		JMenuItem cursosMenuItem = new JMenuItem("Curso");
+		cursosMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				CursosFrame frame = CursosFrame.getInstance();
+				if (frame.isVisible()) {
+					frame.toFront();
+
+				} else {
+					desktopPane.add(frame);
+					frame.setVisible(true);
+				}
+			}
+		});
+		accionesMenu.add(cursosMenuItem);
+
 		JMenuItem salirMenuItem = new JMenuItem("Salir");
 		salirMenuItem.addActionListener(new ActionListener() {
 			@Override

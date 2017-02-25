@@ -14,7 +14,7 @@ public class AlumnosServices {
 		this.socket = socket;
 	}
 
-	public void all(AsyncRequestListener listener) {
+	public void all(AsyncRequestListener<List<AlumnoEntity>> listener) {
 		final Peticion getAll = new Peticion();
 		getAll.setMethod("POST");
 		getAll.setRoute("alumno/obtenerAlumnos");
