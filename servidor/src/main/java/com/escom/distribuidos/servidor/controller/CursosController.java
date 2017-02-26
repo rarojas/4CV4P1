@@ -22,6 +22,11 @@ public class CursosController extends BaseController {
 		return cursoDao.all();
 	}
 
+	@RequestMapping(value = "obtenerByAlumno", method = "POST")
+	public List<CursoEntity> obtenerByAlumno(int idAlumno) {
+		return cursoDao.getByAlumno(idAlumno);
+	}
+
 	@RequestMapping(value = "create", method = "POST")
 	public int create(CursoEntity entity) {
 		return cursoDao.create(entity);

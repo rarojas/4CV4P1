@@ -47,7 +47,7 @@ public abstract class GenericDAO<T> {
 		return this.executeUpdate(query);
 	}
 
-	protected List<T> executeQuery(String query) {
+	public List<T> executeQuery(String query) {
 		ResultSet rs = null;
 		List<T> result = new ArrayList<T>();
 		try {
@@ -64,7 +64,25 @@ public abstract class GenericDAO<T> {
 		return result;
 	}
 
-	protected int executeUpdate(String query) {
+	public <E> List<E> executeQueryLeft(String query, Class<E> _clazz) {
+		ResultSet rs = null;
+		List<E> result = new ArrayList<E>();
+		try {
+			ResultSetMapper<E> _mapper = new ResultSetMapper<>();
+			statement = con.createStatement();
+			rs = statement.executeQuery(query);
+			result = _mapper.mapRersultSetToObject(rs, _clazz);
+			rs.close();
+			statement.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new GenericRuntimeException("Error");
+		}
+		return result;
+	}
+
+	public int executeUpdate(String query) {
 		int rowsAffected = 0;
 		try {
 			statement = con.createStatement();

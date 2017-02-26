@@ -33,6 +33,7 @@ public class ReflectionUtils {
 
 	public static <T> Object[] getValues(T entity, Class<?> clazz) {
 		List<Object> values = new ArrayList<Object>();
+
 		if (clazz.isAnnotationPresent(Entity.class)) {
 			Field[] fields = clazz.getDeclaredFields();
 			for (Field field : fields) {

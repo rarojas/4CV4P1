@@ -44,6 +44,9 @@ public class AlumnosFrame extends JInternalFrame {
 					model.addRow(ReflectionUtils.getValues(alumnoEntity, AlumnoEntity.class));
 				}
 			}
+			@Override
+			public void onError(Exception e) {
+			}
 		});
 	}
 

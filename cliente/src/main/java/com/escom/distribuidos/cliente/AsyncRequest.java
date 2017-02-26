@@ -19,6 +19,7 @@ public class AsyncRequest<T> implements Runnable {
 			callback.onComplete(result);
 		} catch (Exception e) {
 			e.printStackTrace();
+			callback.onError(e);
 		}
 
 	}

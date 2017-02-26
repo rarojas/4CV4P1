@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.escom.distribuidos.core.LocalProperties;
+
 public class BDConexion {
 
 	String dbURL = "jdbc:mysql://localhost:3306/cursos";
@@ -17,6 +19,10 @@ public class BDConexion {
 
 	public Connection open() throws SQLException {
 		try {
+			LocalProperties localProperties = LocalProperties.getInstance();
+			this.dbURL = localProperties.getProp("bd.url");
+			this.username = localProperties.getProp("bd.username");
+			this.password = localProperties.getProp("bd.password");
 			if (this.con == null || this.con.isClosed())
 				this.con = DriverManager.getConnection(dbURL, username, password);
 			return con;

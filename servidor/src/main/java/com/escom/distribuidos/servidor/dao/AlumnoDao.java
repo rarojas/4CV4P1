@@ -9,12 +9,13 @@ import com.escom.distribuidos.model.AlumnoEntity;
 
 public class AlumnoDao extends GenericDAO<AlumnoEntity> {
 
-	private final static String TABLENAME = "alumno";
+	public final static String TABLENAME = "alumno";
 
 	public AlumnoDao(Connection con) {
 		super(con, TABLENAME, AlumnoEntity.class);
 	}
 
+	@Override
 	public List<AlumnoEntity> all() {
 		String query = "SELECT * FROM " + tableName;
 		List<AlumnoEntity> result = new ArrayList<AlumnoEntity>();

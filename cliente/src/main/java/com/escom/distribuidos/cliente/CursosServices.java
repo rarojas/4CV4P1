@@ -27,4 +27,18 @@ public class CursosServices {
 		}, listener)).run();
 
 	}
+
+	public void getCursoByAlumno(int idAlumno, AsyncRequestListener<List<CursoEntity>> listener) {
+		final Peticion getCursoByAlumno = new Peticion();
+		getCursoByAlumno.setMethod("POST");
+		getCursoByAlumno.setRoute("curso/obtenerByAlumno");
+		getCursoByAlumno.setPayload(idAlumno);
+
+		(new AsyncRequest<List<CursoEntity>>(new Callable<List<CursoEntity>>() {
+			@Override
+			public List<CursoEntity> call() throws Exception {
+				return socket.sendRequest(getCursoByAlumno);
+			}
+		}, listener)).run();
+	}
 }

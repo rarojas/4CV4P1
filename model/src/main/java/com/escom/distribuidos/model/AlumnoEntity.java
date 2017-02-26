@@ -1,10 +1,13 @@
 package com.escom.distribuidos.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.escom.distribuidos.core.annotations.Column;
 import com.escom.distribuidos.core.annotations.Entity;
 import com.escom.distribuidos.core.annotations.Id;
+import com.escom.distribuidos.core.annotations.OneToMany;
 
 @Entity
 public class AlumnoEntity implements Serializable {
@@ -47,6 +50,9 @@ public class AlumnoEntity implements Serializable {
 
 	@Column(name = "noTelefono")
 	private String noTelefono;
+
+	@OneToMany
+	private List<CursoEntity> cursos = new ArrayList<CursoEntity>();
 
 	public int getIdAlumno() {
 		return idAlumno;
@@ -134,6 +140,14 @@ public class AlumnoEntity implements Serializable {
 
 	public void setNoTelefono(String noTelefono) {
 		this.noTelefono = noTelefono;
+	}
+
+	public List<CursoEntity> getCursos() {
+		return cursos;
+	}
+
+	public void setCursos(List<CursoEntity> cursos) {
+		this.cursos = cursos;
 	}
 
 }
