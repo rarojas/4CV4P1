@@ -1,8 +1,11 @@
-package com.escom.distribuidos.cliente;
+package com.escom.distribuidos.cliente.services;
 
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import com.escom.distribuidos.cliente.SocketInterface;
+import com.escom.distribuidos.cliente.async.AsyncRequest;
+import com.escom.distribuidos.cliente.async.AsyncRequestListener;
 import com.escom.distribuidos.core.socket.Peticion;
 import com.escom.distribuidos.model.AlumnoEntity;
 

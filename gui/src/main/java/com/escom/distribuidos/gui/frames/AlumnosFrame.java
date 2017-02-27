@@ -1,4 +1,4 @@
-package com.escom.distribuidos.gui;
+package com.escom.distribuidos.gui.frames;
 
 
 import java.awt.BorderLayout;
@@ -9,9 +9,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import com.escom.distribuidos.cliente.AlumnosServices;
-import com.escom.distribuidos.cliente.AsyncRequestListener;
 import com.escom.distribuidos.cliente.Cliente;
+import com.escom.distribuidos.cliente.async.AsyncRequestListener;
+import com.escom.distribuidos.cliente.services.AlumnosServices;
 import com.escom.distribuidos.core.reflection.ReflectionUtils;
 import com.escom.distribuidos.model.AlumnoEntity;
 

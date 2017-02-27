@@ -10,6 +10,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import com.escom.distribuidos.gui.frames.AlumnosFrame;
+import com.escom.distribuidos.gui.frames.AsignacionFrame;
+import com.escom.distribuidos.gui.frames.CursosFrame;
+
 public class MainFrame extends JFrame {
 
 	/**
@@ -71,6 +75,23 @@ public class MainFrame extends JFrame {
 			}
 		});
 		accionesMenu.add(cursosMenuItem);
+
+		JMenuItem asignacionMenuItem = new JMenuItem("Asignaciones");
+		asignacionMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				AsignacionFrame frame = AsignacionFrame.getInstance();
+				if (frame.isVisible()) {
+					frame.toFront();
+
+				} else {
+					desktopPane.add(frame);
+					frame.setVisible(true);
+				}
+			}
+		});
+		accionesMenu.add(asignacionMenuItem);
 
 		JMenuItem salirMenuItem = new JMenuItem("Salir");
 		salirMenuItem.addActionListener(new ActionListener() {

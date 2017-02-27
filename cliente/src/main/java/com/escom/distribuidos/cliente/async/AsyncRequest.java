@@ -1,4 +1,4 @@
-package com.escom.distribuidos.cliente;
+package com.escom.distribuidos.cliente.async;
 
 import java.util.concurrent.Callable;
 

@@ -1,4 +1,4 @@
-package com.escom.distribuidos.gui;
+package com.escom.distribuidos.gui.splash;
 
 import java.net.MalformedURLException;
 import java.net.URL;

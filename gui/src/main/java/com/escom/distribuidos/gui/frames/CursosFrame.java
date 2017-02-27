@@ -1,4 +1,4 @@
-package com.escom.distribuidos.gui;
+package com.escom.distribuidos.gui.frames;
 
 import java.awt.BorderLayout;
 import java.math.BigDecimal;
@@ -15,10 +15,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import com.escom.distribuidos.cliente.AsyncRequestListener;
 import com.escom.distribuidos.cliente.Cliente;
-import com.escom.distribuidos.cliente.CursosServices;
+import com.escom.distribuidos.cliente.async.AsyncRequestListener;
+import com.escom.distribuidos.cliente.services.CursosServices;
 import com.escom.distribuidos.core.reflection.ReflectionUtils;
+import com.escom.distribuidos.gui.FormCurso;
 import com.escom.distribuidos.model.CursoEntity;
 
 public class CursosFrame extends JInternalFrame {

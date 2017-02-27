@@ -1,4 +1,4 @@
-package com.escom.distribuidos.gui;
+package com.escom.distribuidos.gui.splash;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

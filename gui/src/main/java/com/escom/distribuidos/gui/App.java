@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker.StateValue;
 
+import com.escom.distribuidos.gui.splash.SplashScreenMain;
+
 public class App {
 
 	private JFrame frame;
