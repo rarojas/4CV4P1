@@ -7,9 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.text.html.parser.Entity;
-
 import com.escom.distribuidos.core.annotations.Column;
+import com.escom.distribuidos.core.annotations.Entity;
 
 public class ResultSetMapper<T> {
 

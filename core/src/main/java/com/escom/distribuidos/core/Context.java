@@ -6,7 +6,8 @@ import java.util.Map;
 
 public class Context {
 
-	private static Context instance = null;
+	private static final Context instance = new Context();;
+
 	private Map<String, Method> mappings;
 
 	public Map<String, Method> getMappings() {
@@ -22,9 +23,6 @@ public class Context {
 	}
 
 	public static Context getInstance() {
-		if (instance == null) {
-			instance = new Context();
-		}
 		return instance;
 	}
 }

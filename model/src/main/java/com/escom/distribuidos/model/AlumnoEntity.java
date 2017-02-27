@@ -1,4 +1,4 @@
-package com.escom.distribuidos.servidor.dao;
+package com.escom.distribuidos.model;
 
 import java.io.Serializable;
 

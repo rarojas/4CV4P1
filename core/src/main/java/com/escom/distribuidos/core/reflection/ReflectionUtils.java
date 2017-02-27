@@ -10,13 +10,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.escom.distribuidos.core.Context;
 import com.escom.distribuidos.core.annotations.Controller;
 import com.escom.distribuidos.core.annotations.RequestMapping;
 
 public class ReflectionUtils {
 
-	public static Class[] getClasses(String packageName) throws ClassNotFoundException, IOException {
+	public static Map<String, Method> getClasses(String packageName) throws ClassNotFoundException, IOException {
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		assert classLoader != null;
 		String path = packageName.replace('.', '/');
@@ -26,30 +25,28 @@ public class ReflectionUtils {
 			URL resource = resources.nextElement();
 			dirs.add(new File(resource.getFile()));
 		}
-		ArrayList<Class> classes = new ArrayList<Class>();
+		Map<String, Method> mappings = new HashMap<String, Method>();
 		for (File directory : dirs) {
-			classes.addAll(findClasses(directory, packageName));
+			mappings.putAll(findClasses(directory, packageName));
 		}
-		return classes.toArray(new Class[classes.size()]);
+		return mappings;
 	}
 
-	private static List<Class> findClasses(File directory, String packageName) throws ClassNotFoundException {
+	private static Map<String, Method> findClasses(File directory, String packageName) throws ClassNotFoundException {
 		Map<String, Method> mappings = new HashMap<String, Method>();
-		List<Class> classes = new ArrayList<Class>();
 		if (!directory.exists()) {
-			return classes;
+			return mappings;
 		}
 		File[] files = directory.listFiles();
 		for (File file : files) {
 			if (file.isDirectory()) {
 				assert !file.getName().contains(".");
-				classes.addAll(findClasses(file, packageName + "." + file.getName()));
+				mappings.putAll(findClasses(file, packageName + "." + file.getName()));
 			} else if (file.getName().endsWith(".class")) {
-				Class clazz = Class
+				Class<?> clazz = Class
 						.forName(packageName + '.' + file.getName().substring(0, file.getName().length() - 6));
-				Controller controller = (Controller) clazz.getAnnotation(Controller.class);
+				Controller controller = clazz.getAnnotation(Controller.class);
 				if (controller != null) {
-					classes.add(clazz);
 					Method[] methods = clazz.getMethods();
 					for (Method method : methods) {
 						RequestMapping requestMapping = method.getAnnotation(RequestMapping.class);
@@ -65,7 +62,6 @@ public class ReflectionUtils {
 
 			}
 		}
-		Context.getInstance().setMappings(mappings);
-		return classes;
+		return mappings;
 	}
 }
