@@ -1,4 +1,4 @@
-package com.escom.distribuidos.core;
+package com.escom.distribuidos.core.annotations;
 
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;

@@ -3,7 +3,7 @@ package com.escom.distribuidos.servidor;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import com.escom.distribuidos.core.ConexionDispatcher;
+import com.escom.distribuidos.core.socket.ConexionDispatcher;
 
 public class Servidor extends Thread {
 

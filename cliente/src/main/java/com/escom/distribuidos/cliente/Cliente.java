@@ -6,7 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import com.escom.distribuidos.core.Peticion;
+import com.escom.distribuidos.core.socket.Peticion;
 
 public class Cliente {
 

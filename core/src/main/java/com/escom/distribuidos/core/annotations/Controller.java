@@ -1,4 +1,4 @@
-package com.escom.distribuidos.core;
+package com.escom.distribuidos.core.annotations;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

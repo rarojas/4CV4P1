@@ -1,4 +1,4 @@
-package com.escom.distribuidos.core;
+package com.escom.distribuidos.core.socket;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -8,7 +8,6 @@ import java.lang.reflect.Method;
 import java.net.Socket;
 
 import com.escom.distribuidos.core.Context;
-import com.escom.distribuidos.core.Peticion;
 
 public class ConexionDispatcher extends Thread {
 
@@ -46,7 +45,7 @@ public class ConexionDispatcher extends Thread {
 				Method method = context.getMappings().get(route);
 				System.out.println("Peticion");
 				System.out.println(route);
-				Class parent = method.getDeclaringClass();
+				Class<?> parent = method.getDeclaringClass();
 				Object controller;
 				try {
 					controller = parent.newInstance();
@@ -54,8 +53,8 @@ public class ConexionDispatcher extends Thread {
 					if (peticion.getPayload() != null) {
 						args = new Object[] { peticion.getPayload() };
 					}
-					method.invoke(controller, new Object[] {});
-					this.salida.writeObject("works");
+					Object object = method.invoke(controller, args);
+					this.salida.writeObject(object);
 
 				} catch (InstantiationException e) {
 					// TODO Auto-generated catch block
