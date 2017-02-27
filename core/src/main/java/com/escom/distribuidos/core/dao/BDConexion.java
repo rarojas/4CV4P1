@@ -46,4 +46,18 @@ public class BDConexion {
 	public static BDConexion getInstance() {
 		return instance;
 	}
+
+	@Override
+	protected void finalize() throws Throwable {
+
+		try {
+			this.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			super.finalize();
+		}
+
+	}
 }

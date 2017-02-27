@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import com.escom.distribuidos.core.socket.Peticion;
+import com.escom.distribuidos.core.socket.Result;
 
 public class Cliente {
 
@@ -27,9 +28,9 @@ public class Cliente {
 			peticion.setMethod("POST");
 			peticion.setRoute("alumno/obtenerAlumnos");
 			salida.writeObject(peticion);
-			Object resultado;
+			Result resultado;
 			try {
-				resultado = this.entrada.readObject();
+				resultado = (Result) this.entrada.readObject();
 				if (resultado != null)
 					System.out.println(resultado);
 

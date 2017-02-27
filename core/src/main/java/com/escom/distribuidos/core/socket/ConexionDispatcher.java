@@ -3,7 +3,6 @@ package com.escom.distribuidos.core.socket;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.Socket;
 
@@ -54,20 +53,13 @@ public class ConexionDispatcher extends Thread {
 						args = new Object[] { peticion.getPayload() };
 					}
 					Object object = method.invoke(controller, args);
+					Result result = new Result();
+					result.setPayload(result);
 					this.salida.writeObject(object);
-
-				} catch (InstantiationException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InvocationTargetException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				} catch (Exception e) {
+					Result result = new Result();
+					result.setCode(StatusCodeEnum.FAIL);
+					this.salida.writeObject(result);
 				}
 
 			}
