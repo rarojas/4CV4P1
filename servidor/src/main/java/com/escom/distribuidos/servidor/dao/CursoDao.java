@@ -20,6 +20,11 @@ public class CursoDao extends GenericDAO<CursoEntity> {
 				+ ((Integer) idAlumno).toString();
 		return this.executeQuery(query);
 	}
+	
+	public int delete(Integer id){
+		String query = "delete from " + TABLENAME + " where idCurso = " + id.toString();
+		return this.executeUpdate(query);
+	}
 
 
 }

@@ -1,6 +1,10 @@
 package com.escom.distribuidos.core.reflection;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.escom.distribuidos.core.annotations.Column;
 import com.escom.distribuidos.core.annotations.Entity;
@@ -67,6 +71,13 @@ public class ObjectSQLMapper<T> {
 						}
 						if (fieldType.equals(int.class)) {
 							value = ((Integer) valueObj).toString();
+						}
+						if(fieldType.equals(Date.class)) {
+							DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+							value = "'" + df.format(((Date) valueObj)) + "'";
+						}
+						if(fieldType.equals(BigDecimal.class)) {
+							value = ((BigDecimal) valueObj).toString();
 						}
 						result = result.concat(value).concat(",");
 

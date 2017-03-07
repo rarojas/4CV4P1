@@ -34,4 +34,9 @@ public class AlumnoDao extends GenericDAO<AlumnoEntity> {
 		query = query.concat(mapperSql.mapObjectToUpdateSQL(alumno, AlumnoEntity.class));
 		return this.executeUpdate(query);
 	}
+	
+	public int delete(Integer id){
+		String query = "delete from " + TABLENAME + " where idAlumno = " + id.toString();
+		return this.executeUpdate(query);
+	}
 }

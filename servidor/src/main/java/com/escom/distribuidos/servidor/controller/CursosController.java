@@ -36,4 +36,9 @@ public class CursosController extends BaseController {
 	public int update(CursoEntity entity) {
 		return cursoDao.update(entity);
 	}
+	
+	@RequestMapping(value = "delete", method = "POST")
+	public int delete(Integer id) {
+		return cursoDao.delete(id);
+	}
 }

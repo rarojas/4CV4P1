@@ -1,7 +1,12 @@
 package com.escom.distribuidos.gui.frames;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -9,6 +14,7 @@ import java.util.Vector;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
@@ -20,7 +26,10 @@ import com.escom.distribuidos.cliente.async.AsyncRequestListener;
 import com.escom.distribuidos.cliente.services.CursosServices;
 import com.escom.distribuidos.core.reflection.ReflectionUtils;
 import com.escom.distribuidos.gui.FormCurso;
+import com.escom.distribuidos.model.AlumnoEntity;
 import com.escom.distribuidos.model.CursoEntity;
+
+import net.sourceforge.jdatepicker.DateModel;
 
 public class CursosFrame extends JInternalFrame {
 
@@ -74,50 +83,72 @@ public class CursosFrame extends JInternalFrame {
 			}
 		});
 
+		panel.btnSave.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				panel.setModel();
+				cursosServices.save(panel.model, new AsyncRequestListener<Integer>() {
+
+					@Override
+					public void onError(Exception e) {
+						JOptionPane.showMessageDialog(null, "Error :(");
+					}
+
+					@Override
+					public void onComplete(Integer result) {
+						JOptionPane.showMessageDialog(null, "Ok");
+					}
+				});
+			}
+		});
+
+		panel.btnNuevo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				panel.model = new CursoEntity();
+
+			}
+		});
+		
+		
+		panel.btnBorrar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cursosServices.delete(panel.model.getIdCurso(), new AsyncRequestListener<Integer>() {
+					@Override
+					public void onError(Exception e) {
+						JOptionPane.showMessageDialog(null, "Error :(");
+					}
+
+					@Override
+					public void onComplete(Integer result) {
+						JOptionPane.showMessageDialog(null, "Ok");
+					}
+				});
+			}
+		});
+
 		cursoTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				int row = cursoTable.getSelectedRow();
 				if (row != -1) {
+
 					Vector data = (Vector) model.getDataVector().elementAt(row);
 					panel.txtNombre.setText((String) data.get(1));
 
-					Calendar cal = Calendar.getInstance();
-					cal.setTime((Date) data.get(2));
-					panel.txtFInicio.getModel().setDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
-							cal.get(Calendar.DAY_OF_MONTH));
-					panel.txtFInicio.getModel().setSelected(true);
+					panel.model.setIdCurso((int) data.get(0));
+					panel.model.setNombre((String) data.get(1));
+					panel.model.setFechaIncio((Date) data.get(2));
+					panel.model.setFechaTermino((Date) data.get(3));
+					panel.model.setCoutaDeRecuperacion((BigDecimal) data.get(4));
 
-					cal.setTime((Date) data.get(3));
-					panel.txtFTermino.getModel().setDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
-							cal.get(Calendar.DAY_OF_MONTH));
-					panel.txtFTermino.getModel().setSelected(true);
-
-					panel.textCosto.setText(((BigDecimal) data.get(4)).toString());
-					cursosServices.getCursoByAlumno((int) data.get(0), new AsyncRequestListener<List<CursoEntity>>() {
-
-						@Override
-						public void onError(Exception e) {
-
-						}
-
-						@Override
-						public void onComplete(List<CursoEntity> result) {
-							DefaultListModel<CursoEntity> model = new DefaultListModel<>();
-							for (CursoEntity curso : result) {
-								model.addElement(curso);
-							}
-							panel.list.setModel(model);
-						}
-					});
-
+					panel.updateUI();
 
 				}
 			}
 		});
-
-
 
 	}
 }

@@ -30,6 +30,41 @@ public class CursosServices {
 		}, listener)).run();
 
 	}
+	
+	public void save(CursoEntity curso, AsyncRequestListener<Integer> listener) {
+		final Peticion save = new Peticion();
+		save.setMethod("POST");
+		if(curso.getIdCurso() == 0)
+			save.setRoute("curso/creat");
+		else
+			save.setRoute("curso/update");
+		save.setPayload(curso);
+
+		(new AsyncRequest<Integer>(new Callable<Integer>() {
+			@Override
+			public Integer call() throws Exception {
+				return socket.sendRequest(save);
+			}
+		}, listener)).run();
+
+	}
+	
+	public void delete(int id,AsyncRequestListener<Integer> listener) {
+		final Peticion save = new Peticion();
+		save.setMethod("POST");
+		save.setRoute("curso/delete");
+		save.setPayload(id);
+
+		(new AsyncRequest<Integer>(new Callable<Integer>() {
+			@Override
+			public Integer call() throws Exception {
+				return socket.sendRequest(save);
+			}
+		}, listener)).run();
+
+	}
+	
+	
 
 	public void getCursoByAlumno(int idAlumno, AsyncRequestListener<List<CursoEntity>> listener) {
 		final Peticion getCursoByAlumno = new Peticion();

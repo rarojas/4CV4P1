@@ -23,14 +23,19 @@ public class AlumnoController extends BaseController {
 		return alumnoDao.all();
 	}
 
-	@RequestMapping(value = "crearAlumno", method = "POST")
+	@RequestMapping(value = "create", method = "POST")
 	public void crearAlumno(AlumnoEntity alumno) {
 		alumnoDao.createAlumno(alumno);
 	}
 
-	@RequestMapping(value = "updateAlumno", method = "POST")
+	@RequestMapping(value = "update", method = "POST")
 	public int updateAlumno(AlumnoEntity alumno) {
 		return alumnoDao.updateAlumno(alumno);
+	}
+	
+	@RequestMapping(value = "delete", method = "POST")
+	public int delete(Integer id) {
+		return alumnoDao.delete(id);
 	}
 
 }
