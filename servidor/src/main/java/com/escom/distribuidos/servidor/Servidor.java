@@ -3,8 +3,8 @@ package com.escom.distribuidos.servidor;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import com.escom.distribuidos.core.Command;
 import com.escom.distribuidos.core.LocalProperties;
-import com.escom.distribuidos.core.socket.ConexionDispatcher;
 
 public class Servidor extends Thread {
 
@@ -12,13 +12,14 @@ public class Servidor extends Thread {
 
 	private ServerSocket socketServidor;
 	private static LocalProperties localProperties;
+	private Command command;
 
-
-	public Servidor() {
+	public Servidor(Command command) {
 		try {
 			localProperties = LocalProperties.getInstance();
 			String port = localProperties.getProp("net.puerto");
 			socketServidor = new ServerSocket(Integer.parseInt(port));
+			this.command = command;
 			System.out.println("Corriendo...");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -32,7 +33,7 @@ public class Servidor extends Thread {
 		try {
 			while (true) {
 				Socket cliente = this.socketServidor.accept();
-				new ConexionDispatcher(cliente);
+				command.execute(cliente);
 				System.out.println("Nuevo cliente");
 			}
 		} catch (Exception e) {

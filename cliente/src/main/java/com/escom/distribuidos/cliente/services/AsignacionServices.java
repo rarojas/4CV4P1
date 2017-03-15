@@ -28,6 +28,35 @@ public class AsignacionServices {
 				return socket.sendRequest(getAll);
 			}
 		}, listener)).run();
+	}
+
+	public void save(Asignacion asignacion, AsyncRequestListener<Integer> listener) {
+		final Peticion save = new Peticion();
+		save.setMethod("POST");
+		save.setRoute("asignacion/create");
+		save.setPayload(asignacion);
+
+		(new AsyncRequest<Integer>(new Callable<Integer>() {
+			@Override
+			public Integer call() throws Exception {
+				return socket.sendRequest(save);
+			}
+		}, listener)).run();
+
+	}
+
+	public void delete(Asignacion asignacion, AsyncRequestListener<Integer> listener) {
+		final Peticion save = new Peticion();
+		save.setMethod("POST");
+		save.setRoute("asignacion/delete");
+		save.setPayload(asignacion);
+
+		(new AsyncRequest<Integer>(new Callable<Integer>() {
+			@Override
+			public Integer call() throws Exception {
+				return socket.sendRequest(save);
+			}
+		}, listener)).run();
 
 	}
 }

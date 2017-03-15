@@ -59,7 +59,7 @@ public abstract class GenericDAO<T> {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new GenericRuntimeException("Error");
+			throw new GenericRuntimeException(e.getMessage());
 		}
 		return result;
 	}
@@ -90,8 +90,7 @@ public abstract class GenericDAO<T> {
 			statement.close();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new GenericRuntimeException("Error");
+			throw new GenericRuntimeException(e.getMessage());
 		}
 		return rowsAffected;
 	}

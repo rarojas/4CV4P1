@@ -52,6 +52,27 @@ public class CursosFrame extends JInternalFrame {
 		return INSTANCE;
 	}
 
+	public void getCursos() {
+		while (model.getRowCount() > 0) {
+			for (int i = 0; i < model.getRowCount(); ++i) {
+				model.removeRow(i);
+			}
+		}
+		cursosServices.all(new AsyncRequestListener<List<CursoEntity>>() {
+			@Override
+			public void onComplete(List<CursoEntity> result) {
+				for (CursoEntity cursoEntity : result) {
+					model.addRow(ReflectionUtils.getValues(cursoEntity, CursoEntity.class));
+				}
+			}
+
+			@Override
+			public void onError(Exception e) {
+
+			}
+		});
+	}
+
 	private void initialize() {
 		setSize(300, 300);
 		setLocation(30, 30);
@@ -69,26 +90,13 @@ public class CursosFrame extends JInternalFrame {
 		add(panel, BorderLayout.WEST);
 
 		cursosServices = new CursosServices(Cliente.getInstance());
-		cursosServices.all(new AsyncRequestListener<List<CursoEntity>>() {
-			@Override
-			public void onComplete(List<CursoEntity> result) {
-				for (CursoEntity cursoEntity : result) {
-					model.addRow(ReflectionUtils.getValues(cursoEntity, CursoEntity.class));
-				}
-			}
-
-			@Override
-			public void onError(Exception e) {
-
-			}
-		});
+		getCursos();
 
 		panel.btnSave.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				panel.setModel();
 				cursosServices.save(panel.model, new AsyncRequestListener<Integer>() {
-
 					@Override
 					public void onError(Exception e) {
 						JOptionPane.showMessageDialog(null, "Error :(");
@@ -97,6 +105,8 @@ public class CursosFrame extends JInternalFrame {
 					@Override
 					public void onComplete(Integer result) {
 						JOptionPane.showMessageDialog(null, "Ok");
+						getCursos();
+
 					}
 				});
 			}
@@ -106,11 +116,14 @@ public class CursosFrame extends JInternalFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				panel.model = new CursoEntity();
+				panel.model.setFechaIncio(new Date());
+				panel.model.setFechaTermino(new Date());
+				panel.model.setCoutaDeRecuperacion(BigDecimal.valueOf(0.0));
+				panel.updateDataUI();
 
 			}
 		});
-		
-		
+
 		panel.btnBorrar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -123,6 +136,7 @@ public class CursosFrame extends JInternalFrame {
 					@Override
 					public void onComplete(Integer result) {
 						JOptionPane.showMessageDialog(null, "Ok");
+						getCursos();
 					}
 				});
 			}
@@ -144,7 +158,7 @@ public class CursosFrame extends JInternalFrame {
 					panel.model.setFechaTermino((Date) data.get(3));
 					panel.model.setCoutaDeRecuperacion((BigDecimal) data.get(4));
 
-					panel.updateUI();
+					panel.updateDataUI();
 
 				}
 			}

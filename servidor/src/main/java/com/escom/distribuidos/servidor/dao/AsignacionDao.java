@@ -12,7 +12,12 @@ public class AsignacionDao extends GenericDAO<Asignacion> {
 	public AsignacionDao(Connection con) {
 		super(con, TABLENAME, Asignacion.class);
 	}
+	
 
+	public int delete(Integer idCurso, Integer idAlumno){
+		String query = "delete from " + TABLENAME + " where idCurso = " + idCurso.toString()  + " and idAlumno = " + idAlumno.toString();
+		return this.executeUpdate(query);
+	}
 
 
 }

@@ -18,7 +18,7 @@ public class AlumnoController extends BaseController {
 		alumnoDao = new AlumnoDao(connection);
 	}
 
-	@RequestMapping(value = "obtenerAlumnos", method = "POST")
+	@RequestMapping(value = "obtener", method = "POST")
 	public List<AlumnoEntity> obtenerAlumnos() {
 		return alumnoDao.all();
 	}

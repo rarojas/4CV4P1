@@ -8,6 +8,7 @@ import com.escom.distribuidos.cliente.async.AsyncRequest;
 import com.escom.distribuidos.cliente.async.AsyncRequestListener;
 import com.escom.distribuidos.core.socket.Peticion;
 import com.escom.distribuidos.model.AlumnoEntity;
+import com.escom.distribuidos.model.CursoEntity;
 
 public class AlumnosServices {
 
@@ -20,7 +21,7 @@ public class AlumnosServices {
 	public void all(AsyncRequestListener<List<AlumnoEntity>> listener) {
 		final Peticion getAll = new Peticion();
 		getAll.setMethod("POST");
-		getAll.setRoute("alumno/obtenerAlumnos");
+		getAll.setRoute("alumno/obtener");
 
 		(new AsyncRequest<List<AlumnoEntity>>(
 				new Callable<List<AlumnoEntity>>() {
@@ -31,4 +32,39 @@ public class AlumnosServices {
 				}, listener)).run();
 
 	}
+	
+	
+	public void save(AlumnoEntity alumno, AsyncRequestListener<Integer> listener) {
+		final Peticion save = new Peticion();
+		save.setMethod("POST");
+		if(alumno.getIdAlumno() == 0)
+			save.setRoute("alumno/create");
+		else
+			save.setRoute("alumno/update");
+		save.setPayload(alumno);
+
+		(new AsyncRequest<Integer>(new Callable<Integer>() {
+			@Override
+			public Integer call() throws Exception {
+				return socket.sendRequest(save);
+			}
+		}, listener)).run();
+
+	}
+	
+	public void delete(int id,AsyncRequestListener<Integer> listener) {
+		final Peticion save = new Peticion();
+		save.setMethod("POST");
+		save.setRoute("alumno/delete");
+		save.setPayload(id);
+
+		(new AsyncRequest<Integer>(new Callable<Integer>() {
+			@Override
+			public Integer call() throws Exception {
+				return socket.sendRequest(save);
+			}
+		}, listener)).run();
+
+	}
+	
 }

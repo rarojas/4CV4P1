@@ -26,6 +26,9 @@ public class FormCurso extends JPanel {
 	public JDatePickerImpl txtFTermino;
 	public JTextField textCosto;
 	public JList<CursoEntity> list;
+	public JButton btnSave;
+	public JButton btnNuevo;
+	public JButton btnBorrar;
 
 	/**
 	 * Create the panel.
@@ -63,16 +66,13 @@ public class FormCurso extends JPanel {
 		add(textCosto, "6, 10, fill, default");
 		textCosto.setColumns(10);
 
-		list = new JList<>();
-		add(list, "2, 12, 1, 5, fill, fill");
-
-		JButton btnSave = new JButton("Guardar");
+		btnSave = new JButton("Guardar");
 		add(btnSave, "6, 14");
 
-		JButton btnNuevo = new JButton("Nuevo");
+		btnNuevo = new JButton("Nuevo");
 		add(btnNuevo, "6, 16");
 
-		JButton btnBorrar = new JButton("Borrar");
+		btnBorrar = new JButton("Borrar");
 		add(btnBorrar, "6, 18");
 
 	}

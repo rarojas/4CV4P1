@@ -23,11 +23,14 @@ public class AsignacionController extends BaseController {
 		return asignacionDao.all();
 	}
 
-	@RequestMapping(value = "crear", method = "POST")
+	@RequestMapping(value = "create", method = "POST")
 	public void crearAlumno(Asignacion asignacion) {
 		asignacionDao.create(asignacion);
 	}
 
+	@RequestMapping(value = "delete", method = "POST")
+	public void delete(Asignacion asignacion) {
+		asignacionDao.delete(asignacion.getIdCurso(), asignacion.getIdAlumno());
+	}
 
-	
 }

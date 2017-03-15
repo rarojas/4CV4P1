@@ -61,10 +61,17 @@ public class ConexionDispatcher extends Thread {
 				} catch (GenericRuntimeException e) {
 					Result result = new Result();
 					result.setCode(StatusCodeEnum.FAIL);
+					result.setPayload(e.getMessage());
 					salida.writeObject(result);
 					e.printStackTrace();
 				} catch (Exception e) {
+					e.printStackTrace();
 					Result result = new Result();
+					if (e.getCause().getClass().equals(GenericRuntimeException.class)) {
+						result.setPayload(e.getCause().getMessage());
+					} else {
+						result.setPayload("Error desconocido");
+					}
 					result.setCode(StatusCodeEnum.FAIL);
 					salida.writeObject(result);
 				}

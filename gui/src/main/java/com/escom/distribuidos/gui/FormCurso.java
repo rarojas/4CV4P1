@@ -90,7 +90,7 @@ public class FormCurso extends JPanel {
 	}
 	
 	
-	public void updateUI(){
+	public void updateDataUI(){
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(model.getFechaIncio());
 		txtFInicio.getModel().setDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
@@ -125,9 +125,9 @@ public class FormCurso extends JPanel {
 		cal.set(date.getYear(),date.getMonth(),date.getDay());
 		model.setFechaIncio(cal.getTime());
 		
-		date = txtFInicio.getModel();
+		date = txtFTermino.getModel();
 		cal.set(date.getYear(),date.getMonth(),date.getDay());
-		model.setFechaIncio(cal.getTime());
+		model.setFechaTermino(cal.getTime());
 		
 	}
 

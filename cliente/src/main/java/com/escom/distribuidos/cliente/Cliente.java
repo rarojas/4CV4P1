@@ -6,8 +6,10 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import com.escom.distribuidos.core.exceptions.GenericRuntimeException;
 import com.escom.distribuidos.core.socket.Peticion;
 import com.escom.distribuidos.core.socket.Result;
+import com.escom.distribuidos.core.socket.StatusCodeEnum;
 
 public class Cliente implements SocketInterface {
 
@@ -24,6 +26,9 @@ public class Cliente implements SocketInterface {
 		try {
 			salida.writeObject(peticion);
 			Result resultado = (Result) entrada.readObject();
+			if (resultado.getCode().equals(StatusCodeEnum.FAIL)) {
+				throw new GenericRuntimeException((String) resultado.getPayload());
+			}
 			T payload = (T) resultado.getPayload();
 			return payload;
 
@@ -46,9 +51,8 @@ public class Cliente implements SocketInterface {
 		entrada = new ObjectInputStream(this.socket.getInputStream());
 	}
 
-
 	public static Cliente getInstance() {
-		if(INSTANCE == null){
+		if (INSTANCE == null) {
 			try {
 				INSTANCE = new Cliente();
 			} catch (IOException e) {

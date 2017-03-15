@@ -8,7 +8,6 @@ import com.escom.distribuidos.core.annotations.Entity;
 @Entity
 public class Asignacion implements Serializable {
 
-
 	/**
 	 *
 	 */
@@ -25,4 +24,36 @@ public class Asignacion implements Serializable {
 
 	@Column(name = "tipoCurso")
 	private int tipoCurso;
+
+	public int getIdAlumno() {
+		return idAlumno;
+	}
+
+	public void setIdAlumno(int idAlumno) {
+		this.idAlumno = idAlumno;
+	}
+
+	public int getIdCurso() {
+		return idCurso;
+	}
+
+	public void setIdCurso(int idCurso) {
+		this.idCurso = idCurso;
+	}
+
+	public String getHorario() {
+		return horario;
+	}
+
+	public void setHorario(String horario) {
+		this.horario = horario;
+	}
+
+	public int getTipoCurso() {
+		return tipoCurso;
+	}
+
+	public void setTipoCurso(int tipoCurso) {
+		this.tipoCurso = tipoCurso;
+	}
 }

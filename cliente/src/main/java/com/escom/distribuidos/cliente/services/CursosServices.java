@@ -35,7 +35,7 @@ public class CursosServices {
 		final Peticion save = new Peticion();
 		save.setMethod("POST");
 		if(curso.getIdCurso() == 0)
-			save.setRoute("curso/creat");
+			save.setRoute("curso/create");
 		else
 			save.setRoute("curso/update");
 		save.setPayload(curso);

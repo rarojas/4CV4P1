@@ -38,6 +38,13 @@ public class ObjectSQLMapper<T> {
 						if (fieldType.equals(int.class)) {
 							value = ((Integer) valueObj).toString();
 						}
+						if(fieldType.equals(Date.class)) {
+							DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+							value = "'" + df.format(((Date) valueObj)) + "'";
+						}
+						if(fieldType.equals(BigDecimal.class)) {
+							value = ((BigDecimal) valueObj).toString();
+						}
 						result = result.concat(value).concat(",");
 
 					} catch (IllegalArgumentException | IllegalAccessException e) {
