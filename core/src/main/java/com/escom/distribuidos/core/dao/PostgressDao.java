@@ -11,12 +11,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import com.escom.distribuidos.core.exceptions.GenericRuntimeException;
+
 public class PostgressDao extends GenericHelperDB {
 
 	public PostgressDao() throws SQLException {
 		super(BDConexionPostgres.getInstance());
 	}
 
+	@Override
 	public List<String> showDatabases() {
 		List<String> databases = new ArrayList<>();
 		try {
@@ -30,10 +33,13 @@ public class PostgressDao extends GenericHelperDB {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new GenericRuntimeException(e.getMessage());
+
 		}
 		return databases;
 	}
 
+	@Override
 	public List<String> showTables(String db) {
 		List<String> databases = new ArrayList<>();
 		try {
@@ -47,10 +53,13 @@ public class PostgressDao extends GenericHelperDB {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new GenericRuntimeException(e.getMessage());
+
 		}
 		return databases;
 	}
 
+	@Override
 	public Map<String, String> showTableMeta(String db) {
 		Map<String, String> databases = new HashMap<>();
 		DatabaseMetaData dbmd;
@@ -65,11 +74,14 @@ public class PostgressDao extends GenericHelperDB {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new GenericRuntimeException(e.getMessage());
+
 		}
 
 		return databases;
 	}
 
+	@Override
 	public Object showExecuteQuery(String query) {
 		List<String> rows = new ArrayList<>();
 		try {
@@ -100,7 +112,7 @@ public class PostgressDao extends GenericHelperDB {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new GenericRuntimeException(e.getMessage());
 		}
-		return null;
 	}
 }

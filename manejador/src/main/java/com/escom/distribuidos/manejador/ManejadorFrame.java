@@ -1,6 +1,5 @@
 package com.escom.distribuidos.manejador;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,10 +17,11 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -34,7 +34,7 @@ import com.escom.distribuidos.core.dao.BDEnum;
 public class ManejadorFrame extends JInternalFrame {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 8022380150997113286L;
 	private static ManejadorFrame INSTANCE;
@@ -49,19 +49,19 @@ public class ManejadorFrame extends JInternalFrame {
 	private JList<String> listTables;
 	private JList listEstructura;
 	private JComboBox comboBox;
+	private JPanel panel_2;
 
 	public ManejadorFrame() {
 		super("Manejador", true, true, true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(20, 20, 800, 600);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(new GridLayout(0, 1, 0, 0));
 
 		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.NORTH);
-		panel.setLayout(new GridLayout(2, 4, 0, 0));
+		contentPane.add(panel);
+		panel.setLayout(new GridLayout(2, 1, 0, 10));
 
 		JLabel lblNewLabel = new JLabel("Manejador BD");
 		panel.add(lblNewLabel);
@@ -79,8 +79,12 @@ public class ManejadorFrame extends JInternalFrame {
 		});
 		panel.add(comboBox);
 
+		panel_2 = new JPanel();
+		contentPane.add(panel_2);
+		panel_2.setLayout(new GridLayout(1, 3, 10, 10));
+
 		listBD = new JList();
-		contentPane.add(listBD, BorderLayout.WEST);
+		panel_2.add(listBD);
 		listBD.addListSelectionListener(new ListSelectionListener() {
 
 			@Override
@@ -92,6 +96,7 @@ public class ManejadorFrame extends JInternalFrame {
 
 						@Override
 						public void onError(Exception e) {
+							JOptionPane.showMessageDialog(null, "Hubo un error".concat(e.getMessage()));
 							// TODO Auto-generated method stub
 
 						}
@@ -110,7 +115,8 @@ public class ManejadorFrame extends JInternalFrame {
 		});
 
 		listTables = new JList();
-		contentPane.add(listTables, BorderLayout.CENTER);
+		panel_2.add(listTables);
+
 		listTables.addListSelectionListener(new ListSelectionListener() {
 
 			@Override
@@ -122,7 +128,7 @@ public class ManejadorFrame extends JInternalFrame {
 
 								@Override
 								public void onError(Exception e) {
-									// TODO Auto-generated method stub
+									JOptionPane.showMessageDialog(null, "Hubo un error".concat(e.getMessage()));
 
 								}
 
@@ -140,17 +146,18 @@ public class ManejadorFrame extends JInternalFrame {
 		});
 
 		listEstructura = new JList();
-		contentPane.add(listEstructura, BorderLayout.EAST);
+		panel_2.add(listEstructura);
 
 		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.SOUTH);
-		panel_1.setLayout(new GridLayout(3, 1, 0, 0));
+		contentPane.add(panel_1);
+		panel_1.setLayout(new GridLayout(3, 1, 0, 10));
+		panel_1.setSize(800, 200);
 
 		textField = new JTextField();
 		panel_1.add(textField);
 		textField.setColumns(10);
 
-		JButton Run = new JButton("New button");
+		JButton Run = new JButton("Query");
 		panel_1.add(Run);
 
 		Run.addActionListener(new ActionListener() {
@@ -161,7 +168,7 @@ public class ManejadorFrame extends JInternalFrame {
 
 					@Override
 					public void onError(Exception e) {
-						// TODO Auto-generated method stub
+						JOptionPane.showMessageDialog(null, "Hubo un error ".concat(e.getMessage()));
 
 					}
 
@@ -170,6 +177,7 @@ public class ManejadorFrame extends JInternalFrame {
 						if (result == null)
 							return;
 						if (!result.getClass().equals(ArrayList.class)) {
+							JOptionPane.showMessageDialog(null, "Filas afectadas : ".concat(result.toString()));
 
 						} else {
 							List<String> results = (List<String>) result;
@@ -192,7 +200,7 @@ public class ManejadorFrame extends JInternalFrame {
 		});
 
 		table = new JTable();
-		panel_1.add(table);
+		panel_1.add(new JScrollPane(table));
 
 		dbService = DbServicesProvider.getInstance(bdtype);
 		showDatabases();
@@ -204,7 +212,7 @@ public class ManejadorFrame extends JInternalFrame {
 
 			@Override
 			public void onError(Exception e) {
-				// TODO Auto-generated method stub
+				JOptionPane.showMessageDialog(null, "Hubo un error".concat(e.getMessage()));
 			}
 
 			@Override
