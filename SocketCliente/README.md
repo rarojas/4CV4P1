@@ -4,7 +4,8 @@
 
 - Java SDK 7
 - Android Studio 2.2
--
+
+
 ## Build
 
 La construcción nos genera un apk en la siguiente ruta
@@ -73,4 +74,5 @@ protected void onCreate(Bundle savedInstanceState) {
     });
 
 }
+
 ```
