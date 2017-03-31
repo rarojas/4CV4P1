@@ -1,3 +1,4 @@
+    
 # Servidor Manejador BDS
 
 ## Requisitos
@@ -8,7 +9,7 @@
 
 ## Build
 	mvn clean packageew
-	
+
 # Install JDBC MSSQL
 
 Descagar jbdc driver de la pagina oficial de Microsoft
@@ -20,7 +21,7 @@ Correr comando en terminal para instalar el driver en el repositorio local de ma
  
 # Configuracíon 
 
-> file app.properties
+>file app.properties
 	
     #Puerto Socket Servidor
     net.puerto=6666
@@ -39,3 +40,71 @@ Correr comando en terminal para instalar el driver en el repositorio local de ma
 En el folder target se encuentra el archivo ServidorBDS-0.0.1-SNAPSHOT-jar-with-dependencies.jar con ese mismo se corre en consola
 
     java -jar ServidorBDS-0.0.1-SNAPSHOT-jar-with-dependencies.jar.jar
+
+# Características
+
+	Soporte Postgress
+	Soporte MySQl
+	Soporte MSSQL
+
+
+## Agregar nueva BD
+
+Implementar en clase para conexión 
+
+```java 
+public class BDConexionMIDB extends BDConexion {
+
+	static final String JDBC_DRIVER = "MiDBDriver";
+	protected BDConexionMIDB() {
+		try {
+			Class.forName(JDBC_DRIVER);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		LocalProperties localProperties = LocalProperties.getInstance();
+		this.dbURL = localProperties.getProp("midb.bd.url");
+		this.username = localProperties.getProp("midb.bd.username");
+		this.password = localProperties.getProp("midb.bd.password");
+	}
+
+	private static final BDConexionMIDB instance = new BDConexionMIDB();
+
+	public static BDConexion getInstance() {
+		return instance;
+	}
+
+	@Override
+	public BDEnum getTipo() {
+		return BDEnum.MIDB;
+	}
+}
+``` 
+
+
+Implementar DAO con metodos soportados 
+
+```java 
+public class MIDBDao extends GenericHelperDB {
+
+	public MIDBDao() throws SQLException {
+		super(BDConexionMIDB.getInstance());
+	}
+
+	public List<String> showDatabases() {
+		//Implementacion...
+	}
+
+	public List<String> showTables(String db) {
+		//Implementacion...
+	}
+
+	public Map<String, String> showTableMeta(String db) {
+		//Implementacion...
+	}
+
+	public Object showExecuteQuery(String query) {
+		//Implementacion...
+	}
+} 
+``` 

@@ -3,7 +3,7 @@ package com.escom.distribuidos.core.dao;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class GenericHelperDB {
+public abstract class GenericHelperDB implements GenericHelperDBSoport {
 
 	private BDEnum contype;
 	protected Connection con;
