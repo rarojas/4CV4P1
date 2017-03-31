@@ -44,7 +44,7 @@
 
 		<dependency>
 			<groupId>com.escom.distribuidos.rmi</groupId>
-			<artifactId>core</artifactId>
+			<artifactId>rmicore</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
@@ -86,4 +86,10 @@
 			</plugin>
 		</plugins>
 	</build>
+	<parent>
+		<groupId>com.escom.distribuidos</groupId>
+		<artifactId>parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../Parent</relativePath>
+	</parent>
 </project>

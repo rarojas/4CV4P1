@@ -2,9 +2,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.escom.distribuidos.rmi</groupId>
-	<artifactId>core</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>core</name>
+	<artifactId>rmicore</artifactId>
+	<name>rmicore</name>
 
 	<properties>
 		<jackson.version>2.5.3</jackson.version>
@@ -27,4 +26,10 @@
 			<version>${jackson.version}</version>
 		</dependency>
 	</dependencies>
+	<parent>
+		<groupId>com.escom.distribuidos</groupId>
+		<artifactId>parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../Parent</relativePath>
+	</parent>
 </project>
