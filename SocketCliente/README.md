@@ -10,22 +10,22 @@
 
 La construcción nos genera un apk en la siguiente ruta
 
-$ app/build/outputs/
+    app/build/outputs/
 
 El comando de construcción
 
-./gradlew assembleDebug
+    ./gradlew assembleDebug
 
 
 # Instalación  
 
 Para instalar el apk resultado se ejecuta el siguiente comando
 
-adb install <device>
+    adb install <device>
 
 El dispositivo se obtiene por medio de
 
-adb list devices
+    adb list devices
 
 
 ## Cliente Implementación
