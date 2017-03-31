@@ -4,6 +4,12 @@
 	<artifactId>mobile.server</artifactId>
 	<name>MobileServer</name>
 
+	<properties>
+		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.7</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
 	<parent>
 		<groupId>com.escom.distribuidos</groupId>
 		<artifactId>parent</artifactId>
@@ -11,20 +17,25 @@
 		<relativePath>../Parent</relativePath>
 	</parent>
 
+
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
+				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
 					<compilerArgument>-Xlint:all</compilerArgument>
 					<showWarnings>true</showWarnings>
 					<showDeprecation>true</showDeprecation>
+					<archive>
+						<manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
+					</archive>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
+
+
 </project>
