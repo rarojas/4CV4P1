@@ -1,15 +1,15 @@
-#Servidor Manejador BDS
+# Servidor Manejador BDS
 
-##Requisitos
+## Requisitos
 
  - Java SDK 7
  - Maven 3.X
  - MSSQL Jdbc Driver
 
-##Build
+## Build
 	mvn clean packageew
-
-#Install JDBC MSSQL
+	
+# Install JDBC MSSQL
 
 Descagar jbdc driver de la pagina oficial de Microsoft
 
@@ -18,9 +18,9 @@ Correr comando en terminal para instalar el driver en el repositorio local de ma
 
     mvn install:install-file -DgroupId=com.microsoft.sqlserver -DartifactId=sqljdbc4 -Dversion={versionjar} -Dpackaging=jar -DgeneratePom=true -Dfile={jarfile}
  
-#Configuracíon 
+# Configuracíon 
 
->file app.properties
+> file app.properties
 	
     #Puerto Socket Servidor
     net.puerto=6666
@@ -34,7 +34,7 @@ Correr comando en terminal para instalar el driver en el repositorio local de ma
     postgress.bd.url=jdbc:postgresql://localhost:5432
 
 
-#Run 
+# Run 
 
 En el folder target se encuentra el archivo ServidorBDS-0.0.1-SNAPSHOT-jar-with-dependencies.jar con ese mismo se corre en consola
 
