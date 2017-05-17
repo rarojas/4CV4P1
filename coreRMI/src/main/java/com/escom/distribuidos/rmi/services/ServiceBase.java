@@ -1,8 +1,9 @@
 package com.escom.distribuidos.rmi.services;
 
+import java.io.Serializable;
 import java.util.List;
 
-public interface ServiceBase<T> {
+public interface ServiceBase<T> extends Serializable {
 
 	void insert(T entity);
 

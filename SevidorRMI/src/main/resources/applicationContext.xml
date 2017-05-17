@@ -66,5 +66,13 @@
 		<property name="replaceExistingBinding" value="true"></property>
 		<property name="registryPort" value="1099"></property>
 	</bean>
+	
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<property name="service" ref="authServicesImpl"></property>
+		<property name="serviceInterface" value="com.escom.distribuidos.rmi.services.AuthServices"  />
+		<property name="serviceName" value="AuthServices"></property>
+		<property name="replaceExistingBinding" value="true"></property>
+		<property name="registryPort" value="1099"></property>
+	</bean>
 
 </beans>

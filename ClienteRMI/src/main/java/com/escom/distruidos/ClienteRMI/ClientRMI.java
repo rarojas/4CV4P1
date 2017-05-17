@@ -18,7 +18,7 @@ public class ClientRMI {
 
 		matematica = (Matematica) Naming.lookup("rmi://127.0.0.0/MyServer");
 		String txt = JOptionPane.showInputDialog("Datos ?");
-		String[] data = txt.split(Pattern.quote("."));
+		String[] data = txt.split(Pattern.quote(","));
 		double[] a = new double[data.length];
 
 		int index = 0;

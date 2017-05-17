@@ -1,0 +1,30 @@
+doctype html
+html
+	head
+		title= pageName
+	body
+		h2 Examen
+		table
+			tr
+				th  Materia
+				th  #{examen.materia.nombre}
+			tr
+				th Carrera
+				th  #{examen.materia.carrera.nombre}
+			tr
+				th	Fecha 
+				th= dateFormat.format(examen.fecha)
+		table
+			tr
+				th Preguntas
+			for pregunta in examen.preguntas
+				tr
+					th #{pregunta.pregunta}
+				tr 
+					td
+						ul
+							for respuesta in pregunta.respuestas
+								li(style="list-style-type:none")  _ #{respuesta.respuesta}
+								
+					
+				

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd ">
+
+
+	<bean id="carreraServices" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+		<property name="serviceUrl" value="rmi://localhost:1099/carrera" />
+		<property name="serviceInterface"
+			value="com.escom.distribuidos.p2.core.services.CarreraServices" />
+	</bean>
+
+	<bean id="centroTrabajoServices" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+		<property name="serviceUrl" value="rmi://localhost:1099/centrotrabajo" />
+		<property name="serviceInterface"
+			value="com.escom.distribuidos.p2.core.services.CentroTrabajoServices" />
+	</bean>
+
+	<bean id="alumnoServices" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+		<property name="serviceUrl" value="rmi://localhost:1099/alumno" />
+		<property name="serviceInterface"
+			value="com.escom.distribuidos.p2.core.services.AlumnoServices" />
+	</bean>
+
+	<bean id="examenServices" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+		<property name="serviceUrl" value="rmi://localhost:1099/examen" />
+		<property name="serviceInterface"
+			value="com.escom.distribuidos.p2.core.services.ExamenServices" />
+	</bean>
+
+	<bean id="materiaServices" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+		<property name="serviceUrl" value="rmi://localhost:1099/materia" />
+		<property name="serviceInterface"
+			value="com.escom.distribuidos.p2.core.services.MateriaServices" />
+	</bean>
+
+
+	<context:component-scan base-package="com.escom.distribuidos.p2" />
+	<context:annotation-config />
+	<context:property-placeholder location="classpath:app.properties" />
+	
+	
+	<bean id="alumnosFrame" class="com.escom.distribuidos.p2.p2desktop.frames.AlumnosFrame" ></bean>
+
+</beans>

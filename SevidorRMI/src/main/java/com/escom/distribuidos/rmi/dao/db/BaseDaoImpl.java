@@ -19,6 +19,10 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 		sessionFactory.getCurrentSession().save(entity);
 	}
 
+	public void update(T entity) {
+		sessionFactory.getCurrentSession().update(entity);
+	}
+
 	@SuppressWarnings("unchecked")
 	public T get(int id) {
 		return (T) sessionFactory.getCurrentSession().get(clazz, id);

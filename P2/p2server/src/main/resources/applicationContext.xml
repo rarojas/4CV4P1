@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		">
+
+	<context:property-placeholder location="classpath:app.properties" />
+
+	<!-- Scans the classpath for annotated components that will be auto-registered 
+		as Spring beans -->
+	<context:component-scan base-package="com.escom.distribuidos.p2" />
+	<!-- Activates various annotations to be detected in bean classes e.g: @Autowired -->
+	<context:annotation-config />
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${db.driver}" />
+		<property name="url" value="${db.url}" />
+		<property name="username" value="${db.username}" />
+		<property name="password" value="${db.password}" />
+	</bean>
+
+	<tx:annotation-driven />
+	
+
+
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${mail.smtp}" />
+		<property name="port" value="${mail.port}" />
+		<property name="username" value="${mail.username}" />
+		<property name="password" value="${mail.password}" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>	
+				<prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+			</props>
+		</property>
+		<property name="packagesToScan" value="com.escom.distribuidos.p2.core.model" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<property name="service" ref="carreraServicesImpl"></property>
+		<property name="serviceInterface"
+			value="com.escom.distribuidos.p2.core.services.CarreraServices" />
+		<property name="serviceName" value="carrera"></property>
+		<property name="replaceExistingBinding" value="true"></property>
+		<property name="registryPort" value="1099"></property>
+	</bean>
+
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<property name="service" ref="centroTrabajoServicesImpl"></property>
+		<property name="serviceInterface"
+			value="com.escom.distribuidos.p2.core.services.CentroTrabajoServices" />
+		<property name="serviceName" value="centrotrabajo"></property>
+		<property name="replaceExistingBinding" value="true"></property>
+		<property name="registryPort" value="1099"></property>
+	</bean>
+
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<property name="service" ref="alumnoServicesImpl"></property>
+		<property name="serviceInterface"
+			value="com.escom.distribuidos.p2.core.services.AlumnoServices" />
+		<property name="serviceName" value="alumno"></property>
+		<property name="replaceExistingBinding" value="true"></property>
+		<property name="registryPort" value="1099"></property>
+	</bean>
+	
+	
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<property name="service" ref="materiaServicesImpl"></property>
+		<property name="serviceInterface"
+			value="com.escom.distribuidos.p2.core.services.MateriaServices" />
+		<property name="serviceName" value="materia"></property>
+		<property name="replaceExistingBinding" value="true"></property>
+		<property name="registryPort" value="1099"></property>
+	</bean>
+	
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<property name="service" ref="examenServicesImpl"></property>
+		<property name="serviceInterface"
+			value="com.escom.distribuidos.p2.core.services.ExamenServices" />
+		<property name="serviceName" value="examen"></property>
+		<property name="replaceExistingBinding" value="true"></property>
+		<property name="registryPort" value="1099"></property>
+	</bean>
+
+</beans>
